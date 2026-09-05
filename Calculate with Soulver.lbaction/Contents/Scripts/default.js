@@ -16,10 +16,6 @@ const soulverAppID = 'app.soulver.appstore.mac';
 
 const cliHelpURL = 'https://github.com/soulverteam/Soulver-CLI';
 
-// --auto-convert was added in CLI v2.2. Older builds do not recognise it and
-// fold it into the expression instead, which silently returns a wrong answer.
-const minAutoConvertVersion = [2, 2];
-
 // Checked in order. The standalone CLI (Homebrew or a manual install) is
 // preferred over the copy inside the app bundle: it is newer, it is not
 // sandboxed, and so it can read your sheetbook definitions and custom units.
@@ -31,41 +27,22 @@ const cliCandidates = [
 
 const soulverCLI = cliCandidates.find((path) => File.exists(path));
 
-// Costs about 10ms against the ~200ms of an evaluation, so it is cheap enough
-// to run on every invocation, including live feedback in suggestions.js.
-function supportsAutoConvert(cliPath) {
-  const version = LaunchBar.execute(cliPath, '--version')
-    .trim()
-    .match(/(\d+)\.(\d+)/);
-
-  if (version === null) return false;
-
-  const major = parseInt(version[1], 10);
-  const minor = parseInt(version[2], 10);
-
-  return (
-    major > minAutoConvertVersion[0] ||
-    (major === minAutoConvertVersion[0] && minor >= minAutoConvertVersion[1])
-  );
-}
-
-const autoConvert =
-  soulverCLI !== undefined && supportsAutoConvert(soulverCLI);
-
 function calculate(expression) {
-  // '--' keeps an expression that starts with a minus sign (e.g. '-5 + 3')
-  // from being read as an option.
-  const args = ['eval'];
-  if (autoConvert) args.push('--auto-convert');
-  args.push('--', expression);
-
+  // --auto-convert turns a lone result into its natural counterpart (kg to
+  // lb, °C to °F). '--' keeps an expression that starts with a minus sign
+  // (e.g. '-5 + 3') from being read as an option.
+  //
   // CLI v2 writes errors to stderr and leaves stdout empty, so an empty
   // result means the expression was not understood. Older code looked for an
   // 'Error' prefix on stdout; that is still checked in case LaunchBar merges
   // stderr into the result.
-  const result = LaunchBar.execute
-    .apply(LaunchBar, [soulverCLI].concat(args))
-    .trim();
+  const result = LaunchBar.execute(
+    soulverCLI,
+    'eval',
+    '--auto-convert',
+    '--',
+    expression
+  ).trim();
 
   if (result === '' || result.startsWith('Error')) return undefined;
   return result;
