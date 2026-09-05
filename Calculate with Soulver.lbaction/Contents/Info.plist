@@ -5,17 +5,17 @@
 	<key>CFBundleIconFile</key>
 	<string>app.soulver.appstore.mac</string>
 	<key>CFBundleIdentifier</key>
-	<string>ptujec.LaunchBar.action.CalculateWithSoulver</string>
+	<string>nigelwarren.LaunchBar.action.CalculateWithSoulver</string>
 	<key>CFBundleName</key>
 	<string>Calculate with Soulver</string>
 	<key>CFBundleVersion</key>
-	<string>1.5</string>
+	<string>1.5.0</string>
 	<key>LBAssociatedApplication</key>
 	<string>app.soulver.appstore.mac</string>
 	<key>LBDescription</key>
 	<dict>
 		<key>LBAuthor</key>
-		<string>Christian Bender</string>
+		<string>Nigel Warren</string>
 		<key>LBEmail</key>
 		<string></string>
 		<key>LBSummary</key>
@@ -25,7 +25,7 @@
 		<key>LBUpdateURL</key>
 		<string>https://raw.githubusercontent.com/Nigelw/LaunchBar-calculate-with-soulver/main/Calculate%20with%20Soulver.lbaction/Contents/Info.plist</string>
 		<key>LBWebsiteURL</key>
-		<string>https://github.com/Ptujec/LaunchBar/tree/master/Calculate-Soulver</string>
+		<string>https://github.com/Nigelw/LaunchBar-calculate-with-soulver</string>
 	</dict>
 	<key>LBRequiredApplication</key>
 	<string>app.soulver.appstore.mac</string>
