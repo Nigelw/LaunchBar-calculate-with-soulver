@@ -28,9 +28,10 @@ const cliCandidates = [
 const soulverCLI = cliCandidates.find((path) => File.exists(path));
 
 function calculate(expression) {
-  // --auto-convert turns a lone result into its natural counterpart (kg to
-  // lb, °C to °F). '--' keeps an expression that starts with a minus sign
-  // (e.g. '-5 + 3') from being read as an option.
+  // A bare expression is an implicit 'eval'. --auto-convert turns a lone
+  // result into its natural counterpart (kg to lb, °C to °F), and '--' keeps
+  // an expression that looks like a flag ('-h', '--version') from being read
+  // as one.
   //
   // CLI v2 writes errors to stderr and leaves stdout empty, so an empty
   // result means the expression was not understood. Older code looked for an
@@ -38,7 +39,6 @@ function calculate(expression) {
   // stderr into the result.
   const result = LaunchBar.execute(
     soulverCLI,
-    'eval',
     '--auto-convert',
     '--',
     expression
