@@ -38,12 +38,8 @@ Double click the action to open it in LaunchBar.
 * Fixes a possible bug where `⇧↩` could paste an error string.
   * The original checked `shiftKey` before checking the result, so a failed evaluation could be pasted into the frontmost app. The order is now reversed.
 * The `documentation.soulver.app/documentation/command-line-tool-automator-and-services` URL now 404s; CLI documentation lives at [soulverteam/Soulver-CLI](https://github.com/soulverteam/Soulver-CLI) and the integration pages moved under `/documentation/integrations/`.
-
-### Update URL removed
-
-`LBUpdateURL` pointed at the upstream action's `Info.plist`, so LaunchBar's
-update check would have overwritten all of the above with the Soulver 3
-version.
+* `LBUpdateURL` points at this repo, so LaunchBar checks for updates here.
+  * It previously pointed at the upstream action's `Info.plist`, which would have replaced this action with the Soulver 3 version.
 
 ## License
 
