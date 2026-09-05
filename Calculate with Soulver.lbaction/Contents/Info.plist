@@ -22,6 +22,8 @@
 		<string>Evaluate an expression with the Soulver command line tool. Requires Soulver 4.</string>
 		<key>LBTwitter</key>
 		<string></string>
+		<key>LBUpdateURL</key>
+		<string>https://raw.githubusercontent.com/Nigelw/LaunchBar-calculate-with-soulver/main/Calculate%20with%20Soulver.lbaction/Contents/Info.plist</string>
 		<key>LBWebsiteURL</key>
 		<string>https://github.com/Ptujec/LaunchBar/tree/master/Calculate-Soulver</string>
 	</dict>
