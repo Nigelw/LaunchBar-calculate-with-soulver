@@ -47,5 +47,8 @@ version.
 
 ## License
 
-Inherits the original's license: see
-[Ptujec/LaunchBar](https://github.com/Ptujec/LaunchBar/blob/master/LICENSE).
+MIT, see [LICENSE](LICENSE).
+
+Derived from Christian Bender's original action, also MIT licensed
+(Copyright © 2022 Christian Bender, see
+[Ptujec/LaunchBar](https://github.com/Ptujec/LaunchBar/blob/master/LICENSE)).
