@@ -3,13 +3,39 @@ Soulver CL Action for LaunchBar
 by Christian Bender (@ptujec)
 2022-06-16
 
+Updated for Soulver 4 / Soulver CLI v2
+
 Copyright see: https://github.com/Ptujec/LaunchBar/blob/master/LICENSE
 
 Documentation:
-- https://documentation.soulver.app/documentation/command-line-tool-automator-and-services
+- https://documentation.soulver.app/documentation/integrations/command-line-tool-automator-and-services
+- https://github.com/soulverteam/Soulver-CLI
 */
 
-const soulverCLI = '/Applications/Soulver 3.app/Contents/MacOS/CLI/soulver';
+const soulverAppID = 'app.soulver.appstore.mac';
+
+const cliHelpURL = 'https://github.com/soulverteam/Soulver-CLI';
+
+// Checked in order. The standalone CLI (Homebrew or a manual install) is
+// preferred over the copy inside the app bundle: it is newer, it is not
+// sandboxed, and so it can read your sheetbook definitions and custom units.
+const cliCandidates = [
+  '/opt/homebrew/bin/soulver',
+  '/usr/local/bin/soulver',
+  '/Applications/Soulver.app/Contents/MacOS/CLI/soulver',
+];
+
+const soulverCLI = cliCandidates.find((path) => File.exists(path));
+
+function calculate(expression) {
+  // CLI v2 writes errors to stderr and leaves stdout empty, so an empty
+  // result means the expression was not understood. Older code looked for an
+  // 'Error' prefix on stdout; that is still checked in case LaunchBar merges
+  // stderr into the result.
+  const result = LaunchBar.execute(soulverCLI, expression).trim();
+  if (result === '' || result.startsWith('Error')) return undefined;
+  return result;
+}
 
 function run(argument) {
   if (LaunchBar.options.commandKey) {
@@ -19,36 +45,29 @@ function run(argument) {
     return;
   }
 
-  if (!File.exists(soulverCLI)) {
+  if (soulverCLI === undefined) {
     const response = LaunchBar.alert(
-      'Missing Soulver Command Line Interface',
-      'The Soulver Command Line Interface was not found in the expected location. Press "Help" and read what is written about the Alfred Workflow. This applies for the LaunchBar Action aswell.',
+      'Missing Soulver command line tool',
+      'The "soulver" command line tool was not found. Install it with "brew install --cask soulver-cli", or from Soulver 4 choose Soulver → Install Command Line Tool…',
       'Help',
       'Cancel'
     );
-    switch (response) {
-      case 0:
-        LaunchBar.openURL(
-          'https://documentation.soulver.app/documentation/command-line-tool-automator-and-services'
-        );
-      case 1:
-        break;
-    }
+    if (response === 0) LaunchBar.openURL(cliHelpURL);
     return;
   }
 
-  const result = LaunchBar.execute(soulverCLI, argument).trim();
+  const result = calculate(argument);
+
+  if (result === undefined) return;
 
   if (LaunchBar.options.shiftKey) return LaunchBar.paste(result);
 
-  if (!result.startsWith('Error')) {
-    return [
-      {
-        title: result,
-        subtitle: argument,
-        alwaysShowsSubtitle: true,
-        icon: 'app.soulver.mac',
-      },
-    ];
-  }
+  return [
+    {
+      title: result,
+      subtitle: argument,
+      alwaysShowsSubtitle: true,
+      icon: soulverAppID,
+    },
+  ];
 }

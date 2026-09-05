@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleIconFile</key>
-	<string>app.soulver.mac</string>
+	<string>app.soulver.appstore.mac</string>
 	<key>CFBundleIdentifier</key>
 	<string>ptujec.LaunchBar.action.CalculateWithSoulver</string>
 	<key>CFBundleName</key>
 	<string>Calculate with Soulver</string>
 	<key>CFBundleVersion</key>
-	<string>1.4.1</string>
+	<string>2.0.0</string>
 	<key>LBAssociatedApplication</key>
-	<string>app.soulver.mac</string>
+	<string>app.soulver.appstore.mac</string>
 	<key>LBDescription</key>
 	<dict>
 		<key>LBAuthor</key>
@@ -19,16 +19,14 @@
 		<key>LBEmail</key>
 		<string></string>
 		<key>LBSummary</key>
-		<string></string>
+		<string>Evaluate an expression with the Soulver command line tool. Requires Soulver 4.</string>
 		<key>LBTwitter</key>
 		<string></string>
-		<key>LBUpdateURL</key>
-		<string>https://raw.githubusercontent.com/Ptujec/LaunchBar/master/Calculate-Soulver/Calculate%20with%20Soulver.lbaction/Contents/Info.plist</string>
 		<key>LBWebsiteURL</key>
 		<string>https://github.com/Ptujec/LaunchBar/tree/master/Calculate-Soulver</string>
 	</dict>
 	<key>LBRequiredApplication</key>
-	<string>app.soulver.mac</string>
+	<string>app.soulver.appstore.mac</string>
 	<key>LBScripts</key>
 	<dict>
 		<key>LBDefaultScript</key>

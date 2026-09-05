@@ -3,32 +3,28 @@ Soulver CL Action for LaunchBar
 by Christian Bender (@ptujec)
 2022-06-16
 
+Updated for Soulver 4 / Soulver CLI v2
+
 Copyright see: https://github.com/Ptujec/LaunchBar/blob/master/LICENSE
 
 Documentation:
-- https://documentation.soulver.app/documentation/command-line-tool-automator-and-services
+- https://documentation.soulver.app/documentation/integrations/command-line-tool-automator-and-services
+- https://github.com/soulverteam/Soulver-CLI
 */
 
 include('default.js');
 
 function runWithString(string) {
-  if (string == '') return;
+  if (string === '') return;
+  if (soulverCLI === undefined) return;
 
-  const result = LaunchBar.execute(soulverCLI, string).trim();
+  const result = calculate(string);
 
-  const dict = {
+  if (result === undefined) return;
+
+  return {
     title: result,
     label: '⌘↩ = Open Entry in Soulver',
     icon: 'equal',
   };
-
-  // LaunchBar.log(result);
-
-  if (result == '') return;
-
-  if (result.startsWith('Error')) {
-    dict.icon = 'error';
-  }
-
-  return dict;
 }
